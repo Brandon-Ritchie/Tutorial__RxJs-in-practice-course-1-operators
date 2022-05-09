@@ -26,7 +26,5 @@ export class AboutComponent implements OnInit {
     const interval2$ = interval1$.pipe(map((val) => 10 * val));
 
     const result$ = merge(interval1$, interval2$);
-
-    result$.subscribe(console.log);
   }
 }
