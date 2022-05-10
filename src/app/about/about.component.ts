@@ -8,6 +8,7 @@ import {
   of,
   concat,
   merge,
+  Subject,
 } from "rxjs";
 import { map } from "rxjs/operators";
 import { createHttpObservable } from "../common/util";
@@ -21,10 +22,15 @@ export class AboutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    const http$ = createHttpObservable("/api/courses");
+    const subject = new Subject();
 
-    const sub = http$.subscribe(console.log);
+    const series$ = subject.asObservable();
 
-    setTimeout(() => sub.unsubscribe(), 0);
+    series$.subscribe(console.log);
+
+    subject.next(1);
+    subject.next(2);
+    subject.next(3);
+    subject.complete();
   }
 }
